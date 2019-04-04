@@ -7,9 +7,11 @@ public class GridManager : MonoBehaviour
     public static GridManager Instance;
     const int ROWS = 7;
     const int COLUMNS = 5;
-    public int[,] _gems = new int[COLUMNS, ROWS];
+    //public int[,] _gems = new int[COLUMNS, ROWS];
+    public GameObject[,] _gems = new GameObject[COLUMNS,ROWS];
     Color[] _colors = new Color[6];
     public GameObject _gemPrefab;
+    Color tempColor;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +23,20 @@ public class GridManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        for (int x = 0; x < COLUMNS; x++)
+        {
+            for (int y = 0; y < ROWS; y++)
+            {
+                if (x == PlayerScript.Instance.xposition && y == PlayerScript.Instance.yposition)
+                {
+                   tempColor = _gems[x, y].GetComponent<SpriteRenderer>().material.color;
+                   Destroy(_gems[x, y]);
+                   GameObject gem = Instantiate(_gemPrefab);
+                   gem.transform.position = new Vector3(PlayerScript.Instance.oldxposition, PlayerScript.Instance.oldyposition);
+                   gem.GetComponent<SpriteRenderer>().material.color = tempColor;
+                }
+            }
+        }
     }
     public void InstantiateGems()
     {
@@ -29,9 +44,17 @@ public class GridManager : MonoBehaviour
         {
             for (int y = 0; y < ROWS; y++)
             {
+                if (PlayerScript.Instance.xposition == x && PlayerScript.Instance.yposition == y)
+                {
+                    continue;
+                    //GameObject gem = Instantiate(_gemPrefab);
+                    //gem.transform.position = new Vector3(x, y);
+                    //gem.GetComponent<SpriteRenderer>().material.color = _colors[Random.Range(0, 6)];
+                }
                 GameObject gem = Instantiate(_gemPrefab);
+                _gems[x, y] = gem;
                 gem.transform.position = new Vector3(x, y);
-                gem.GetComponent<SpriteRenderer>().material.color = _colors[Random.Range(0,6)];
+                gem.GetComponent<SpriteRenderer>().material.color = _colors[Random.Range(0, 6)];
             }
         }
     }
