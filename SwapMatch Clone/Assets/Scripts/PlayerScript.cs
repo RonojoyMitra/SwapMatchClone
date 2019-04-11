@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -14,8 +15,9 @@ public class PlayerScript : MonoBehaviour
     public int xposition = 2;
     public int yposition = 3;
     public Vector2 oldposition = new Vector2(2, 3);
-    public int _playerMoveCount = 6;
-    public Text _playerMoveText;
+    private int _playerMoveCount = 6;
+    //public Text _playerMoveText;
+    public TextMeshProUGUI _playerMoveText;
     //public int oldxposition = 2;
     //public int oldyposition = 3;
     // Start is called before the first frame update
@@ -28,7 +30,7 @@ public class PlayerScript : MonoBehaviour
         //Player.transform.position = GridManager.Instance._gems[2,3];
         //GridManager.Instance._gems[3, 2] = Player;
         _currentPlayer.transform.position = new Vector3(xposition,yposition);
-        _playerMoveText.transform.position = _currentPlayer.transform.position;
+        //_playerMoveText.transform.position = _currentPlayer.transform.position;
     }
 
     // Update is called once per frame
@@ -39,7 +41,7 @@ public class PlayerScript : MonoBehaviour
             oldposition = new Vector2(xposition, yposition);
             xposition--;
             _currentPlayer.transform.position = new Vector3(xposition ,yposition);
-            _playerMoveText.transform.position = _currentPlayer.transform.position;
+            //_playerMoveText.transform.position = _currentPlayer.transform.position;
             _playerMoveCount--;
             GridManager.SendMessage("PlayerMovement"); 
         }
@@ -50,7 +52,7 @@ public class PlayerScript : MonoBehaviour
             xposition++;
             //_currentPlayer = Instantiate(_playerPrefab);
             _currentPlayer.transform.position = new Vector3(xposition ,yposition);
-            _playerMoveText.transform.position = _currentPlayer.transform.position;
+            //_playerMoveText.transform.position = _currentPlayer.transform.position;
             _playerMoveCount--;
             GridManager.SendMessage("PlayerMovement");
             //Destroy(_oldPlayer);
@@ -64,7 +66,7 @@ public class PlayerScript : MonoBehaviour
             yposition++;
             //_currentPlayer = Instantiate(_playerPrefab);
             _currentPlayer.transform.position = new Vector3(xposition, yposition);
-            _playerMoveText.transform.position = _currentPlayer.transform.position;
+            //_playerMoveText.transform.position = _currentPlayer.transform.position;
             _playerMoveCount--;
             GridManager.SendMessage("PlayerMovement");
             //Destroy(_oldPlayer);
@@ -76,7 +78,7 @@ public class PlayerScript : MonoBehaviour
             yposition--;
             //_currentPlayer = Instantiate(_playerPrefab);
             _currentPlayer.transform.position = new Vector3(xposition, yposition);
-            _playerMoveText.transform.position = _currentPlayer.transform.position;
+            //_playerMoveText.transform.position = _currentPlayer.transform.position;
             _playerMoveCount--;
             GridManager.SendMessage("PlayerMovement");
             //Destroy(_oldPlayer);
