@@ -27,17 +27,38 @@ public class GridManager : MonoBehaviour
         //{
         //    for (int y = 0; y < ROWS; y++)
         //    {
-        //        if (x == PlayerScript.Instance.xposition && y == PlayerScript.Instance.yposition && _gems[x,y] != null)
-        //        {
-        //           tempColor = _gems[x, y].GetComponent<SpriteRenderer>().material.color;
-        //           Destroy(_gems[x, y]);
-        //           GameObject gem = Instantiate(_gemPrefab);
-        //            gem.transform.position = PlayerScript.Instance.oldposition;
-        //           gem.GetComponent<SpriteRenderer>().material.color = tempColor;
+        //        //Checking for matches on the right
+        //        //if (x < COLUMNS-1)
+        //        //{
+        //        //    if (_gems[x + 1, y] && _gems[x,y] != null)
+        //        //    {
+        //        //        if (_gems[x, y].GetComponent<SpriteRenderer>().material.color == _gems[x + 1, y].GetComponent<SpriteRenderer>().material.color)
+        //        //        {
+        //        //            if (_gems[x + 2, y] != null)
+        //        //            {
+        //        //                if (_gems[x + 1, y].GetComponent<SpriteRenderer>().material.color == _gems[x + 2, y].GetComponent<SpriteRenderer>().material.color)
+        //        //                {
+        //        //                    Debug.Log("3Match");
+        //        //                }
+        //        //            }
+        //        //        }
+        //        //     }
         //        }
+        //        //if (_gems[x - 1, y] != null)
+        //        //{
+
+        //        //}
+        //        //if (_gems[x, y + 1] != null)
+        //        //{
+
+        //        //}
+        //        //if (_gems[x, y - 1] != null)
+        //        //{
+
+        //        //}
         //    }
         //}
-    }
+        }
     public void InstantiateGems()
     {
         for (int x = 0; x < COLUMNS; x++)

@@ -11,7 +11,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject _playerPrefab;
     GameObject _currentPlayer;
     GameObject _oldPlayer;
-    public GameObject GridManager;
+    public GameObject _GridManager;
     public int xposition = 2;
     public int yposition = 3;
     public Vector2 oldposition = new Vector2(2, 3);
@@ -28,7 +28,7 @@ public class PlayerScript : MonoBehaviour
         //GridManager.Instance._gems[3, 2] = Instantiate(_playerPrefab);
         _currentPlayer = Instantiate(_playerPrefab);
         //Player.transform.position = GridManager.Instance._gems[2,3];
-        //GridManager.Instance._gems[3, 2] = Player;
+        //GridManager.Instance._gems[xposition, yposition] = _currentPlayer;
         _currentPlayer.transform.position = new Vector3(xposition,yposition);
         //_playerMoveText.transform.position = _currentPlayer.transform.position;
     }
@@ -41,9 +41,10 @@ public class PlayerScript : MonoBehaviour
             oldposition = new Vector2(xposition, yposition);
             xposition--;
             _currentPlayer.transform.position = new Vector3(xposition ,yposition);
+            //GridManager.Instance._gems[xposition, yposition] = _currentPlayer;
             //_playerMoveText.transform.position = _currentPlayer.transform.position;
             _playerMoveCount--;
-            GridManager.SendMessage("PlayerMovement"); 
+            _GridManager.SendMessage("PlayerMovement"); 
         }
         if (Input.GetKeyDown(KeyCode.RightArrow) && xposition < 4)
         {
@@ -52,9 +53,10 @@ public class PlayerScript : MonoBehaviour
             xposition++;
             //_currentPlayer = Instantiate(_playerPrefab);
             _currentPlayer.transform.position = new Vector3(xposition ,yposition);
+            //GridManager.Instance._gems[xposition, yposition] = _currentPlayer;
             //_playerMoveText.transform.position = _currentPlayer.transform.position;
             _playerMoveCount--;
-            GridManager.SendMessage("PlayerMovement");
+            _GridManager.SendMessage("PlayerMovement");
             //Destroy(_oldPlayer);
         }
         if (Input.GetKeyDown(KeyCode.UpArrow) && yposition < 6)
@@ -66,9 +68,10 @@ public class PlayerScript : MonoBehaviour
             yposition++;
             //_currentPlayer = Instantiate(_playerPrefab);
             _currentPlayer.transform.position = new Vector3(xposition, yposition);
+            //GridManager.Instance._gems[xposition, yposition] = _currentPlayer;
             //_playerMoveText.transform.position = _currentPlayer.transform.position;
             _playerMoveCount--;
-            GridManager.SendMessage("PlayerMovement");
+            _GridManager.SendMessage("PlayerMovement");
             //Destroy(_oldPlayer);
         }
         if (Input.GetKeyDown(KeyCode.DownArrow) && yposition > 0)
@@ -78,9 +81,10 @@ public class PlayerScript : MonoBehaviour
             yposition--;
             //_currentPlayer = Instantiate(_playerPrefab);
             _currentPlayer.transform.position = new Vector3(xposition, yposition);
+            //GridManager.Instance._gems[xposition, yposition] = _currentPlayer;
             //_playerMoveText.transform.position = _currentPlayer.transform.position;
             _playerMoveCount--;
-            GridManager.SendMessage("PlayerMovement");
+            _GridManager.SendMessage("PlayerMovement");
             //Destroy(_oldPlayer);
         }
     }

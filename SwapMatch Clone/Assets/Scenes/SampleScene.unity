@@ -143,7 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerPrefab: {fileID: 920149042566011422, guid: e16988af0b29c494d83f42dee2a8ee4c,
     type: 3}
-  GridManager: {fileID: 1364909762}
+  _GridManager: {fileID: 1364909762}
   xposition: 2
   yposition: 3
   oldposition: {x: 2, y: 3}
@@ -579,6 +579,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1364909764}
   - component: {fileID: 1364909763}
+  - component: {fileID: 1364909765}
   m_Layer: 0
   m_Name: GridManager
   m_TagString: Untagged
@@ -614,3 +615,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1364909765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364909762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a97c737dcb80044faf29a939d30857c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
