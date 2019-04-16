@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GridManager : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class GridManager : MonoBehaviour
     Color[] _colors = new Color[6];
     public GameObject _gemPrefab;
     Color tempColor;
+    int _playerScore = 0;
+    public GameObject DestructionParticle;
+    public TextMeshProUGUI _ScoreDisplay;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,13 +23,14 @@ public class GridManager : MonoBehaviour
         SetColors();
         InstantiateGems();
         MatchCheck();
+        GemReplacement();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
+        GemReplacement();
+        _ScoreDisplay.text = _playerScore.ToString();
     }
     public void InstantiateGems()
     {
@@ -68,6 +73,7 @@ public class GridManager : MonoBehaviour
             gem.GetComponent<SpriteRenderer>().material.color = tempColor;
             Debug.Log("Gem isn't null");
             MatchCheck();
+            GemReplacement();
         }
         else
         {
@@ -81,7 +87,7 @@ public class GridManager : MonoBehaviour
             for (int y = 0; y < ROWS; y++)
             {
                 //Checking for matches on the right
-                if (x < COLUMNS - 1)
+                if (x < COLUMNS - 2)
                 {
                     if (_gems[x, y] && _gems[x + 1, y] != null)
                     {
@@ -89,15 +95,25 @@ public class GridManager : MonoBehaviour
                         {
                             if (_gems[x + 2, y] != null)
                             {
-                                if (_gems[x + 1, y].GetComponent<SpriteRenderer>().material.color == _gems[x + 2, y].GetComponent<SpriteRenderer>().material.color)
+                                if (_gems[x + 1, y].GetComponent<SpriteRenderer>().material.color == _gems[x + 2, y].GetComponent<SpriteRenderer>().material.color &&
+                                    _gems[x, y].GetComponent<SpriteRenderer>().material.color == _gems[x + 2, y].GetComponent<SpriteRenderer>().material.color
+                                    && _gems[x,y].GetComponent<SpriteRenderer>().material.color == _gems[x + 1,y].GetComponent<SpriteRenderer>().material.color)
                                 {
                                     Debug.Log("3MatchH");
+                                    _playerScore = _playerScore + 1;
+                                    PlayerScript.Instance._playerMoveCount = 6;
+                                    //_gems[x, y].GetComponent<SpriteRenderer>().material.color = Color.gray;
+                                    //_gems[x + 1, y].GetComponent<SpriteRenderer>().material.color = Color.gray;
+                                    //_gems[x + 2, y].GetComponent<SpriteRenderer>().material.color = Color.gray;
+                                    Destroy(_gems[x, y]);
+                                    Destroy(_gems[x + 1, y]);
+                                    Destroy(_gems[x + 2, y]);
                                 }
                             }
                         }
                     }
                 }              
-                if (y < ROWS - 1)
+                if (y < ROWS - 2)
                 {
                     if (_gems[x, y] && _gems[x, y + 1] != null)
                     {
@@ -105,9 +121,20 @@ public class GridManager : MonoBehaviour
                         {
                             if (_gems[x, y + 2] != null)
                             {
-                                if (_gems[x, y + 1].GetComponent<SpriteRenderer>().material.color == _gems[x, y + 1].GetComponent<SpriteRenderer>().material.color)
+                                if (_gems[x, y + 1].GetComponent<SpriteRenderer>().material.color == _gems[x, y + 2].GetComponent<SpriteRenderer>().material.color 
+                                    && _gems[x, y].GetComponent<SpriteRenderer>().material.color == _gems[x, y + 2].GetComponent<SpriteRenderer>().material.color
+                                    && _gems[x,y].GetComponent<SpriteRenderer>().material.color == _gems[x, y + 1].GetComponent<SpriteRenderer>().material.color)
                                 {
+                                    _playerScore = _playerScore + 1;
                                     Debug.Log("3MatchV");
+                                    PlayerScript.Instance._playerMoveCount = 6;
+                                    //_gems[x, y].GetComponent<SpriteRenderer>().material.color = Color.gray;
+                                    //_gems[x, y + 1].GetComponent<SpriteRenderer>().material.color = Color.gray;
+                                    //_gems[x, y + 2].GetComponent<SpriteRenderer>().material.color = Color.gray;
+                                    Destroy(_gems[x, y]);
+                                    Destroy(_gems[x, y + 1]);
+                                    Destroy(_gems[x, y + 2]);
+                                    Instantiate(DestructionParticle,_gems[x,y].transform.position,Quaternion.identity);
                                 }
                             }
                         }
@@ -120,5 +147,26 @@ public class GridManager : MonoBehaviour
                 //}
             }
         }
+    }
+    public void GemReplacement()
+    {
+        for (int x = 0; x < COLUMNS; x++)
+        {
+            for (int y = 0; y < ROWS; y++)
+            {
+                if (_gems[x, y] == null)
+                {
+                    if (PlayerScript.Instance.xposition == x && PlayerScript.Instance.yposition == y)
+                    {
+                        continue;
+                    }
+                    GameObject gem = Instantiate(_gemPrefab);
+                    _gems[x, y] = gem;
+                    gem.transform.position = new Vector3(x, y);
+                    gem.GetComponent<SpriteRenderer>().material.color = _colors[Random.Range(0, 6)];
+                }
+            }
+        }
+        MatchCheck();
     }
 }
